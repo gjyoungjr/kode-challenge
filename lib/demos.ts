@@ -4,6 +4,27 @@ export type Item = {
   description?: string;
 };
 
+export type NavItem = {
+  name: string;
+  slug: string;
+  description?: string;
+};
+
+export const navItems: NavItem[] = [
+  {
+    name: 'Dashboard',
+    slug: 'dashboard',
+  },
+  {
+    name: 'Challenges',
+    slug: 'challenges',
+  },
+  {
+    name: 'Settings',
+    slug: 'settings',
+  },
+];
+
 export const demos: { name: string; items: Item[] }[] = [
   {
     name: 'Layouts',
