@@ -1,13 +1,13 @@
 import '#/styles/globals.css';
-import { AddressBar } from '#/ui/address-bar';
-import Byline from '#/ui/byline';
-import { GlobalNav } from '#/ui/global-nav';
 import { Metadata } from 'next';
+import { AddressBar } from '#/ui/address-bar';
+import { GlobalNav } from '#/ui/global-nav';
+import { ThemeProvider } from '#/ui/theme-provider';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Kode',
-    template: 'Kode',
+    default: 'kode',
+    template: 'kode',
   },
   description:
     'A playground to explore new Next.js App Router features such as nested layouts, instant loading states, streaming, and component level data fetching.',
@@ -28,18 +28,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className=" overflow-y-scroll pb-36">
-        <GlobalNav />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <GlobalNav />
 
-        <div className="lg:pl-72">
-          <div className="mb-15 mx-auto lg:py-1">
-            <div className="fixed rounded-lg">
-              <AddressBar />
+          <div className="lg:pl-72">
+            <div className="mb-15 mx-auto lg:py-1">
+              <div className="fixed rounded-lg">
+                <AddressBar />
+              </div>
             </div>
+
+            <div className="mt-20 pl-5 pr-5">{children}</div>
           </div>
-          <div className="mt-20 pl-5 pr-5">{children}</div>
-        </div>
+        </ThemeProvider>
       </body>
     </html>
   );

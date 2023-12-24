@@ -1,31 +1,32 @@
 'use client';
-import { demos, type Item, navItems } from '#/lib/demos';
-import { NextLogo } from '#/ui/next-logo';
+import clsx from 'clsx';
 import Link from 'next/link';
+import { useState } from 'react';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { MenuAlt2Icon, XIcon } from '@heroicons/react/solid';
-import clsx from 'clsx';
-import { useState } from 'react';
+import { navItems, type NavItem } from '#/lib/demos';
+import { NextLogo } from '#/ui/next-logo';
 
 export function GlobalNav() {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
 
   return (
-    <div className="fixed top-0 z-10 flex w-full flex-col bg-gray-100 lg:bottom-0 lg:z-auto lg:w-72">
-      <div className="flex h-14 items-center px-4 py-4 lg:h-auto">
+    <div className="bg-secondary fixed top-0 z-10 flex w-full flex-col border lg:bottom-0 lg:z-auto lg:w-72">
+      <div className="flex h-14 items-center px-3 py-4 lg:h-auto">
         <Link
           href="/"
           className="group flex w-full items-center gap-x-2.5"
           onClick={close}
         >
-          <div className="h-7 w-7 rounded-full border border-white/30 group-hover:border-white/50">
+          <div className="border-white-30 group-hover:border-white-50 h-7 w-7 rounded-full border">
             <NextLogo />
           </div>
 
           <h3 className="font-semibold tracking-wide">kode</h3>
         </Link>
       </div>
+
       <button
         type="button"
         className="group absolute right-0 top-0 flex h-14 items-center gap-x-2 px-4 lg:hidden"
@@ -47,7 +48,18 @@ export function GlobalNav() {
           hidden: !isOpen,
         })}
       >
-        <nav className="space-y-6 px-2 pb-24 pt-1">
+        <nav className="space-y-3 px-2">
+          <div className="bg-secondary rounded-lg border shadow-sm">
+            <GlobalNavItem
+              item={{
+                slug: 'new-challenge',
+                name: 'New challenge',
+                command: 'E',
+              }}
+              close={close}
+            />
+          </div>
+
           <div className="space-y-1">
             {navItems.map((item) => (
               <GlobalNavItem key={item.slug} item={item} close={close} />
@@ -59,7 +71,7 @@ export function GlobalNav() {
   );
 }
 
-const navItemIcons: { [x: string]: React.ReactNode } = {
+export const navItemIcons: { [x: string]: React.ReactNode } = {
   dashboard: (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -113,12 +125,29 @@ const navItemIcons: { [x: string]: React.ReactNode } = {
       />
     </svg>
   ),
+  'new-challenge': (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="mr-2 h-5 w-5"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+      />
+    </svg>
+  ),
 };
+
 function GlobalNavItem({
   item,
   close,
 }: {
-  item: Item;
+  item: NavItem;
   close: () => false | void;
 }) {
   const segment = useSelectedLayoutSegment();
@@ -129,7 +158,7 @@ function GlobalNavItem({
       onClick={close}
       href={`/${item.slug}`}
       className={clsx(
-        'flex items-center rounded-md px-2 py-2 text-sm font-medium',
+        'flex items-center rounded-md px-1.5 py-1.5 text-sm font-medium text-gray-700',
         {
           'hover:bg-gray-200': !isActive,
           'bg-gray-200': isActive,
@@ -138,6 +167,11 @@ function GlobalNavItem({
     >
       {navItemIcons[item.slug]}
       {item.name}
+      {item.command && (
+        <p className="ml-auto rounded bg-gray-200 px-1 py-0.5">
+          &#8984; {item.command}
+        </p>
+      )}
     </Link>
   );
 }

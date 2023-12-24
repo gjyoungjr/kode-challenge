@@ -2,6 +2,7 @@
 
 import React, { Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { navItemIcons } from './global-nav';
 
 function Params() {
   const searchParams = useSearchParams()!;
@@ -41,42 +42,60 @@ export function AddressBar() {
   return (
     <div className="flex items-center gap-x-2 p-3.5 lg:px-5 lg:py-3">
       <div className="text-gray-600">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-4"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-            clipRule="evenodd"
-          />
-        </svg>
+        {navItemIcons[pathname.split('/')[1]]}
       </div>
-      <div className="flex gap-x-1 text-sm font-medium">
-        <div>
-          <span className="px-2 text-gray-400">acme.com</span>
-        </div>
+      <div className="flex items-center gap-x-1 text-sm font-medium">
+        <div className="text-gray-400">{pathname.split('/')[1]}</div>
         {pathname ? (
           <>
-            <span className="text-gray-600">/</span>
+            <span className="text-gray-600">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="h-3 w-3"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </span>
             {pathname
               .split('/')
               .slice(2)
-              .map((segment) => {
+              .map((segment, index, array) => {
                 return (
                   <React.Fragment key={segment}>
                     <span>
                       <span
                         key={segment}
-                        className="animate-[highlight_1s_ease-in-out_1] rounded-full px-1.5 py-0.5 text-gray-100"
+                        className="animate-[highlight_1s_ease-in-out_1] rounded-full px-1.5 py-0.5 text-gray-400"
                       >
                         {segment}
                       </span>
                     </span>
-
-                    <span className="text-gray-600">/</span>
+                    {index < array.length - 1 && (
+                      <span className="px-1 text-gray-600">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="h-3 w-3"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                          />
+                        </svg>
+                      </span>
+                    )}
                   </React.Fragment>
                 );
               })}

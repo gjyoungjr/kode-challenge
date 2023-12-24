@@ -8,16 +8,13 @@ export type NavItem = {
   name: string;
   slug: string;
   description?: string;
+  command?: string;
 };
 
 export const navItems: NavItem[] = [
   {
     name: 'Dashboard',
     slug: 'dashboard',
-  },
-  {
-    name: 'Challenges',
-    slug: 'challenges',
   },
   {
     name: 'Settings',
