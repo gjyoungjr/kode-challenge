@@ -4,7 +4,7 @@ import { Editor } from 'novel';
 function page() {
   return (
     <>
-      <Editor className="mr-auto" />
+      <Editor className="bg-dark border-none " />
     </>
   );
 }

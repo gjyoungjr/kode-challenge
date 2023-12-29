@@ -1,77 +1,124 @@
-'use client';
 import clsx from 'clsx';
-import Link from 'next/link';
-import { useState } from 'react';
+import React from 'react';
 import { useSelectedLayoutSegment } from 'next/navigation';
-import { MenuAlt2Icon, XIcon } from '@heroicons/react/solid';
-import { navItems, type NavItem } from '#/lib/demos';
-import { NextLogo } from '#/ui/next-logo';
+import { Separator } from '@/components/ui/separator';
+import { UserAvatar } from '../user-avatar';
+import Link from 'next/link';
 
-export function GlobalNav() {
-  const [isOpen, setIsOpen] = useState(false);
-  const close = () => setIsOpen(false);
+interface NavContentProps {
+  isOpen: boolean;
+  close: () => false | void;
+}
 
+type NavItem = {
+  name: string;
+  slug: string;
+  description?: string;
+  command?: string;
+};
+
+export default function NavContent({ isOpen, close }: NavContentProps) {
   return (
-    <div className="bg-secondary fixed top-0 z-10 flex w-full flex-col border lg:bottom-0 lg:z-auto lg:w-72">
-      <div className="flex h-14 items-center px-3 py-4 lg:h-auto">
-        <Link
-          href="/"
-          className="group flex w-full items-center gap-x-2.5"
-          onClick={close}
-        >
-          <div className="border-white-30 group-hover:border-white-50 h-7 w-7 rounded-full border">
-            <NextLogo />
-          </div>
+    <div
+      className={clsx('overflow-y-auto lg:static lg:block', {
+        'bg-secondary fixed inset-x-0 bottom-0 top-14 mt-px': isOpen,
+        hidden: !isOpen,
+      })}
+    >
+      <nav className="space-y-3 px-2">
+        <div className="space-y-1">
+          <GlobalNavItem
+            item={{
+              slug: 'new-challenge',
+              name: 'New challenge',
+              command: 'N',
+            }}
+            close={close}
+          />
 
-          <h3 className="font-semibold tracking-wide">kode</h3>
-        </Link>
-      </div>
-
-      <button
-        type="button"
-        className="group absolute right-0 top-0 flex h-14 items-center gap-x-2 px-4 lg:hidden"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <div className="font-medium text-gray-100 group-hover:text-gray-400">
-          Menu
+          <GlobalNavItem
+            item={{
+              slug: 'search',
+              name: 'Search',
+              command: 'K',
+            }}
+            close={close}
+          />
         </div>
-        {isOpen ? (
-          <XIcon className="block w-6 text-gray-400" />
-        ) : (
-          <MenuAlt2Icon className="block w-6 text-gray-400" />
-        )}
-      </button>
 
-      <div
-        className={clsx('overflow-y-auto lg:static lg:block', {
-          'fixed inset-x-0 bottom-0 top-14 mt-px bg-inherit': isOpen,
-          hidden: !isOpen,
-        })}
-      >
-        <nav className="space-y-3 px-2">
-          <div className="bg-secondary rounded-lg border shadow-sm">
-            <GlobalNavItem
-              item={{
-                slug: 'new-challenge',
-                name: 'New challenge',
-                command: 'E',
-              }}
-              close={close}
-            />
-          </div>
-
-          <div className="space-y-1">
-            {navItems.map((item) => (
-              <GlobalNavItem key={item.slug} item={item} close={close} />
-            ))}
-          </div>
-        </nav>
-      </div>
+        <Separator />
+        <div className="space-y-1">
+          {navItems.map((item) => (
+            <GlobalNavItem key={item.slug} item={item} close={close} />
+          ))}
+        </div>
+        <UserAvatar name="Gilbert Young" email="gilbertjyoungjr@gmail.com" />
+      </nav>
     </div>
   );
 }
 
+function GlobalNavItem({
+  item,
+  close,
+}: {
+  item: NavItem;
+  close: () => false | void;
+}) {
+  const segment = useSelectedLayoutSegment();
+  const isActive = item.slug === segment;
+
+  return (
+    <Link
+      onClick={close}
+      href={`/${item.slug}`}
+      className={clsx(
+        'flex items-center rounded-md px-1.5 py-1.5 text-sm font-medium',
+        {
+          'hover:bg-secondary': !isActive,
+          'bg-secondary': isActive,
+        },
+      )}
+    >
+      {navItemIcons[item.slug]}
+      {item.name}
+      {item.command && (
+        <p className="bg-secondary ml-auto rounded px-1 py-0.5">
+          &#8984;{item.command}
+        </p>
+      )}
+    </Link>
+  );
+}
+
+const navItems: NavItem[] = [
+  {
+    name: 'Dashboard',
+    slug: 'dashboard',
+  },
+  {
+    name: 'Settings',
+    slug: 'settings',
+  },
+];
+
 export const navItemIcons: { [x: string]: React.ReactNode } = {
+  search: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="mr-2 h-5 w-5"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+      />
+    </svg>
+  ),
   dashboard: (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -142,36 +189,3 @@ export const navItemIcons: { [x: string]: React.ReactNode } = {
     </svg>
   ),
 };
-
-function GlobalNavItem({
-  item,
-  close,
-}: {
-  item: NavItem;
-  close: () => false | void;
-}) {
-  const segment = useSelectedLayoutSegment();
-  const isActive = item.slug === segment;
-
-  return (
-    <Link
-      onClick={close}
-      href={`/${item.slug}`}
-      className={clsx(
-        'flex items-center rounded-md px-1.5 py-1.5 text-sm font-medium text-gray-700',
-        {
-          'hover:bg-gray-200': !isActive,
-          'bg-gray-200': isActive,
-        },
-      )}
-    >
-      {navItemIcons[item.slug]}
-      {item.name}
-      {item.command && (
-        <p className="ml-auto rounded bg-gray-200 px-1 py-0.5">
-          &#8984; {item.command}
-        </p>
-      )}
-    </Link>
-  );
-}

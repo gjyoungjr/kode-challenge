@@ -2,7 +2,7 @@
 
 import React, { Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { navItemIcons } from './global-nav';
+import { navItemIcons } from './nav-sidebar/nav-content';
 
 function Params() {
   const searchParams = useSearchParams()!;

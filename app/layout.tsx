@@ -1,7 +1,7 @@
 import '#/styles/globals.css';
 import { Metadata } from 'next';
 import { AddressBar } from '#/ui/address-bar';
-import { GlobalNav } from '#/ui/global-nav';
+import { NavSideBar } from '#/ui/nav-sidebar';
 import { ThemeProvider } from '#/ui/theme-provider';
 
 export const metadata: Metadata = {
@@ -36,7 +36,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <GlobalNav />
+          <NavSideBar />
 
           <div className="lg:pl-72">
             <div className="mb-15 mx-auto lg:py-1">
