@@ -13,6 +13,7 @@ const HeadContainer = styled.header`
   color: rgb(244 244 245);
   grid-column-start: 2;
   grid-column-end: 4;
+  background-color: black;
 `;
 
 const Title = styled.span`

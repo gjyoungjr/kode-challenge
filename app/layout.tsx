@@ -1,8 +1,8 @@
-import '#/styles/globals.css';
+import '@/styles/globals.css';
 import { Metadata } from 'next';
-import { AddressBar } from '#/ui/address-bar';
-import { NavSideBar } from '#/ui/nav-sidebar';
-import { ThemeProvider } from '#/ui/theme-provider';
+import { AddressBar } from '@/components/address-bar';
+import { NavSideBar } from '@/components/nav-sidebar';
+import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
   title: {
@@ -38,14 +38,14 @@ export default function RootLayout({
         >
           <NavSideBar />
 
-          <div className="lg:pl-72">
-            <div className="mb-15 mx-auto lg:py-1">
+          <div className="lg:pl-60">
+            {/* <div className="mb-15 mx-auto lg:py-1">
               <div className="fixed rounded-lg">
                 <AddressBar />
               </div>
-            </div>
+            </div> */}
 
-            <div className="mt-20 pl-5 pr-5">{children}</div>
+            <div className="mt-10 pl-5 pr-5">{children}</div>
           </div>
         </ThemeProvider>
       </body>
