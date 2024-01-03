@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import React from 'react';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
-import { UserAvatar } from '../user-avatar';
 import Link from 'next/link';
+import UserAvatar from '../user-avatar/horizontal-avatar';
 
 interface NavContentProps {
   isOpen: boolean;
@@ -52,7 +52,7 @@ export default function NavContent({ isOpen, close }: NavContentProps) {
             <GlobalNavItem key={item.slug} item={item} close={close} />
           ))}
         </div>
-        <UserAvatar name="Gilbert Young" email="gilbertjyoungjr@gmail.com" />
+        <UserAvatar name="Acme" email="acme@gmail.com" />
       </nav>
     </div>
   );
@@ -67,11 +67,13 @@ function GlobalNavItem({
 }) {
   const segment = useSelectedLayoutSegment();
   const isActive = item.slug === segment;
+  const slug =
+    item.slug === 'dashboard' ? `/dashboard` : `/dashboard/${item.slug}`;
 
   return (
     <Link
       onClick={close}
-      href={`/${item.slug}`}
+      href={slug}
       className={clsx(
         'flex items-center rounded-md px-1.5 py-1.5 text-sm font-medium',
         {

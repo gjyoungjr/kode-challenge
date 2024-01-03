@@ -1,14 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import { NextLogo } from '../next-logo';
-
-function Logo() {
-  return (
-    <div className="border-white-30 group-hover:border-white-50 h-7 w-7 rounded-full border">
-      <NextLogo />
-    </div>
-  );
-}
+import { Logo } from '../logo';
 
 export default function Header() {
   return (

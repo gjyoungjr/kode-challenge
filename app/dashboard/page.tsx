@@ -1,11 +1,12 @@
 import React from 'react';
 import { ChallengeCard } from '@/components/challenge-card';
+import Link from 'next/link';
 
 function Page() {
   return (
-    <div>
+    <Link href={'/editor'}>
       <ChallengeCard />
-    </div>
+    </Link>
   );
 }
 
