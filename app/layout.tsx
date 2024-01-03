@@ -1,7 +1,5 @@
 import '@/styles/globals.css';
 import { Metadata } from 'next';
-import { AddressBar } from '@/components/address-bar';
-import { NavSideBar } from '@/components/nav-sidebar';
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
@@ -36,17 +34,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NavSideBar />
-
-          <div className="lg:pl-60">
-            {/* <div className="mb-15 mx-auto lg:py-1">
-              <div className="fixed rounded-lg">
-                <AddressBar />
-              </div>
-            </div> */}
-
-            <div className="mt-10 pl-5 pr-5">{children}</div>
-          </div>
+          <div>{children}</div>
         </ThemeProvider>
       </body>
     </html>
