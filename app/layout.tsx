@@ -27,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className=" overflow-y-scroll pb-36">
+      <body>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
