@@ -8,7 +8,7 @@ export default function CodeEditorLayout({
   return (
     <>
       <AppBar />
-      <div className="mt-4 pl-5 pr-5">{children}</div>
+      <div className="mt-14 overflow-hidden">{children}</div>
     </>
   );
 }
