@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 
 import Editor, { useMonaco } from '@monaco-editor/react';
-import { DraculaTheme } from '../monaco-themes/slate';
-import { eiffelLight } from '../monaco-themes/eiffel-light';
+import { light, slate } from '../editor-themes';
 import { useTheme } from 'next-themes';
 
 function CodeEditor() {
@@ -10,13 +9,14 @@ function CodeEditor() {
   const { theme } = useTheme();
 
   useEffect(() => {
+    // Load & set themes for monaco editor
     if (theme === 'dark' || theme === 'system') {
       // @ts-ignore
-      monaco?.editor.defineTheme('dracula', DraculaTheme);
-      monaco?.editor.setTheme('dracula');
+      monaco?.editor.defineTheme('slate', slate);
+      monaco?.editor.setTheme('slate');
     } else {
       // @ts-ignore
-      monaco?.editor.defineTheme('light', eiffelLight);
+      monaco?.editor.defineTheme('light', light);
       monaco?.editor.setTheme('light');
     }
   }, [monaco]);
@@ -24,8 +24,10 @@ function CodeEditor() {
   return (
     <Editor
       height="90vh"
-      theme={theme === 'dark' || theme === 'system' ? 'dracula' : 'light'}
-      defaultValue="function x() {}"
+      theme={theme === 'dark' || theme === 'system' ? 'slate' : 'light'}
+      defaultValue="function checkBalance () {
+    
+      }"
       defaultLanguage="typescript"
     />
   );
