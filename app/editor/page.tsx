@@ -5,6 +5,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from '@/components/ui/resizable';
+import CodeEditor from '@/components/editor';
 
 function ResizableDemo() {
   return (
@@ -14,15 +15,9 @@ function ResizableDemo() {
       }}
     >
       <ResizablePanelGroup direction="horizontal" className="w-full  border">
-        <ResizablePanel defaultSize={10}>
-          <div className="flex h-full items-center justify-center p-6">
-            <span className="font-semibold">file</span>
-          </div>
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={65}>
-          <div className="flex h-full items-center justify-center p-6">
-            <span className="font-semibold">IDE</span>
+        <ResizablePanel defaultSize={75}>
+          <div className="flex h-full">
+            <CodeEditor />
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
