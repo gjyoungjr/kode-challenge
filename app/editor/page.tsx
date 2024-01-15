@@ -6,8 +6,9 @@ import {
   ResizablePanelGroup,
 } from '@/components/ui/resizable';
 import CodeEditor from '@/components/editor';
+import { PromptForm } from '@/components/chat/prompt-form';
 
-function ResizableDemo() {
+function EditorWorkSpace() {
   return (
     <div
       style={{
@@ -15,19 +16,19 @@ function ResizableDemo() {
       }}
     >
       <ResizablePanelGroup direction="horizontal" className="w-full  border">
-        <ResizablePanel defaultSize={75}>
+        <ResizablePanel defaultSize={65}>
           <div className="flex h-full">
             <CodeEditor />
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={25}>
-          <div className="flex h-full items-center justify-center p-6">
-            <span className="font-semibold">ChatBot</span>
+        <ResizablePanel defaultSize={35} className="relative w-full">
+          <div className="absolute bottom-2 w-full px-2 ">
+            <PromptForm onSubmit={(e) => console.log(e)} isLoading={false} />
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>
   );
 }
-export default ResizableDemo;
+export default EditorWorkSpace;
