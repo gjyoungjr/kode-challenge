@@ -1,14 +1,19 @@
 'use client';
 import React from 'react';
+import { useChat } from 'ai/react';
+
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from '@/components/ui/resizable';
 import CodeEditor from '@/components/editor';
-import { PromptForm } from '@/components/chat/prompt-form';
+import ChatPanel from '@/components/chat/chat-panel';
 
 function EditorWorkSpace() {
+  const { messages, input, handleSubmit, handleInputChange, isLoading, stop } =
+    useChat();
+
   return (
     <div
       style={{
@@ -18,13 +23,24 @@ function EditorWorkSpace() {
       <ResizablePanelGroup direction="horizontal" className="w-full  border">
         <ResizablePanel defaultSize={65}>
           <div className="flex h-full">
-            <CodeEditor />
+            <CodeEditor
+              onChange={(value) =>
+                console.log(`Value ${JSON.stringify(value, null, 2)}`)
+              }
+            />
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={35} className="relative w-full">
           <div className="absolute bottom-2 w-full px-2 ">
-            <PromptForm onSubmit={(e) => console.log(e)} isLoading={false} />
+            <ChatPanel
+              messages={messages}
+              input={input}
+              handleSubmit={handleSubmit}
+              handleInputChange={handleInputChange}
+              isLoading={isLoading}
+              stop={stop}
+            />
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>

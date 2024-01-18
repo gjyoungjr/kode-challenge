@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { type UseChatHelpers } from 'ai/react';
 import Textarea from 'react-textarea-autosize';
+
 import { Button } from '@/components/ui/button';
 import {
   Tooltip,
@@ -7,23 +9,66 @@ import {
   TooltipTrigger,
   TooltipProvider,
 } from '@/components/ui/tooltip';
-import { useChat } from 'ai/react';
-import { ArrowUpIcon } from '../ui/icons';
-import { ChatList } from './chat-list';
+import {
+  ArrowUpIcon,
+  StopIcon,
+  RefreshIcon,
+  LightBulbIcon,
+} from '@/components/ui/icons';
 
-export interface PromptProps {
-  onSubmit: (value: string) => void;
-  isLoading: boolean;
-}
+export interface PromptProps
+  extends Pick<
+    UseChatHelpers,
+    | 'input'
+    | 'handleInputChange'
+    | 'handleSubmit'
+    | 'isLoading'
+    | 'stop'
+    | 'messages'
+  > {}
 
-export function PromptForm({ onSubmit, isLoading }: PromptProps) {
-  const { messages, input, setInput, handleSubmit, handleInputChange } =
-    useChat();
-
+export function PromptForm({
+  isLoading,
+  handleInputChange,
+  handleSubmit,
+  input,
+  stop,
+  messages,
+}: PromptProps) {
   return (
     <>
-      <div className=" h-full overflow-y-auto">
-        {messages && <ChatList messages={messages} />}
+      <div className="mx-auto sm:max-w-2xl sm:px-4">
+        <div className="flex h-12 items-center justify-center">
+          {isLoading ? (
+            <Button
+              variant="outline"
+              onClick={() => stop()}
+              className="bg-background"
+            >
+              <StopIcon className="mr-2" />
+              Stop generating
+            </Button>
+          ) : messages.length >= 2 ? (
+            <div className="flex space-x-2">
+              <Button
+                variant="outline"
+                // onClick={() => stop()} // TODO: Insert logic here
+                className="bg-background"
+              >
+                <RefreshIcon className="mr-2" />
+                Re-explain challenge
+              </Button>
+              <Button
+                variant="outline"
+                // onClick={() => stop()} // TODO: Insert logic here
+                className="bg-background"
+              >
+                <LightBulbIcon className="mr-2" />
+                Give me a hint.
+              </Button>
+            </div>
+          ) : null}
+        </div>
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -42,12 +87,19 @@ export function PromptForm({ onSubmit, isLoading }: PromptProps) {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button type="submit" size="icon" className="h-8 w-8">
-                    <ArrowUpIcon className="w-5" />
+                  <Button
+                    type="submit"
+                    size="icon"
+                    className="h-8 w-8"
+                    disabled={isLoading || input === ''}
+                  >
+                    <ArrowUpIcon className="w-5 " />
                     <span className="sr-only">Send message</span>
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>Send message</TooltipContent>
+                <TooltipContent>
+                  {isLoading ? 'Stop generating' : 'Send message'}
+                </TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </div>
