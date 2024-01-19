@@ -1,13 +1,10 @@
-# Next.js App Router Playground
+# 🤖 Jarvis Ai
 
-Next.js recently introduced the App Router with support for:
+Jarvis is an AI bot that gives you hints to solve complex code challenges. It simulates the act of pair programming with a friend or a senior software engineer on your dev team.
 
-- **Layouts:** Easily share UI while preserving state and avoiding re-renders.
-- **Server Components:** Making server-first the default for the most dynamic applications.
-- **Streaming:** Display instant loading states and stream in updates.
-- **Suspense for Data Fetching:** `async`/`await` support and the `use` hook for component-level fetching.
+---
 
-The App Router can coexist with the existing `pages` directory for incremental adoption. While you **don't need to use the App Router** when upgrading to Next.js 13, we're laying the foundations to build complex interfaces while shipping less JavaScript.
+Below are useful commands on how to initialize, build and test the application.
 
 ## Running Locally
 
@@ -23,6 +20,8 @@ pnpm install
 pnpm dev
 ```
 
-## Documentation
+## Create a production build
 
-https://nextjs.org/docs
+```sh
+pnpm build
+```

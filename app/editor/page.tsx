@@ -14,6 +14,8 @@ function EditorWorkSpace() {
   const { messages, input, handleSubmit, handleInputChange, isLoading, stop } =
     useChat();
 
+  // TODO: Retrieve code in editor & pass to ChatBot
+
   return (
     <div
       style={{
