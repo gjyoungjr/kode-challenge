@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react';
 
-import Editor, { useMonaco } from '@monaco-editor/react';
+import Editor, { useMonaco, type OnChange } from '@monaco-editor/react';
 import { light, slate } from '../editor-themes';
 import { useTheme } from 'next-themes';
 
-function CodeEditor() {
+interface CodeEditorProps {
+  onChange?: OnChange;
+}
+
+function CodeEditor({ onChange }: CodeEditorProps) {
   const monaco = useMonaco();
   const { theme } = useTheme();
 
@@ -19,7 +23,7 @@ function CodeEditor() {
       monaco?.editor.defineTheme('light', light);
       monaco?.editor.setTheme('light');
     }
-  }, [monaco]);
+  }, [monaco, theme]);
 
   return (
     <Editor
@@ -29,6 +33,7 @@ function CodeEditor() {
     
       }"
       defaultLanguage="typescript"
+      onChange={onChange}
     />
   );
 }

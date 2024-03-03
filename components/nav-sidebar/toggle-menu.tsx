@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuAlt2Icon, XIcon } from '@heroicons/react/solid';
+import { XMarkIcon, HashtagIcon } from '@heroicons/react/20/solid';
 
 interface ToggleMenuProps {
   isOpen: boolean;
@@ -17,9 +17,9 @@ export default function ToggleMenu({ isOpen, setIsOpen }: ToggleMenuProps) {
         Menu
       </div>
       {isOpen ? (
-        <XIcon className="block w-6 text-gray-400" />
+        <XMarkIcon className="block w-6 text-gray-400" />
       ) : (
-        <MenuAlt2Icon className="block w-6 text-gray-400" />
+        <HashtagIcon className="block w-6 text-gray-400" />
       )}
     </button>
   );

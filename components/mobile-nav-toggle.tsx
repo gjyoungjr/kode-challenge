@@ -1,8 +1,8 @@
 'use client';
-
-import { MenuAlt2Icon, XIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import React from 'react';
+
+import { MenuIcon, XIcon } from '@/components/ui/icons';
 
 const MobileNavContext = React.createContext<
   [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
@@ -47,7 +47,7 @@ export function MobileNavToggle({ children }: { children: React.ReactNode }) {
         {isOpen ? (
           <XIcon className="block w-6 text-gray-300" />
         ) : (
-          <MenuAlt2Icon className="block w-6 text-gray-300" />
+          <MenuIcon className="block w-6 text-gray-300" />
         )}
       </button>
 

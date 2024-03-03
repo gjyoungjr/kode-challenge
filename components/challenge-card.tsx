@@ -20,7 +20,7 @@ export function ChallengeCard({ className, ...props }: CardProps) {
         <CardTitle>🪣 S3 Challenge</CardTitle>
         <CardDescription className="line-clamp-3">
           This challenge is to create an S3 Bucket that will host objects that
-          won't be frequently accessed. This text will be truncated and blurred
+          wont be frequently accessed. This text will be truncated and blurred
           after two lines.
         </CardDescription>
       </CardHeader>
